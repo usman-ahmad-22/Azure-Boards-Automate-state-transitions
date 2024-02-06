@@ -1,6 +1,6 @@
 # Azure-Boards-Automate-state-transitions-Project
 I've created logic apps that will Automate Azure Boards state transitions of parent work items based on child work items.
-flow of the Logic app is like this:
+here is flow of the Logic app.
 ![flow of the Logic app is like this:](https://github.com/usman-ahmad-22/Azure-Boards-Automate-state-transitions-Project/blob/main/84541089-46361500-acbc-11ea-927a-7d76d730526e.png).
 
 it is efficient and cost-effective way for states automation.
