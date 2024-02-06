@@ -1,0 +1,122 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "For_each_Children_Feature": {
+                "actions": {
+                    "If_any_Feature_is_Active": {
+                        "actions": {
+                            "Set_Epic_State_Active": {
+                                "description": "work item Id = parent work item ( Id )",
+                                "inputs": {
+                                    "body": {
+                                        "userEnteredFields": {
+                                            "System.State": "Active"
+                                        }
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+                                        }
+                                    },
+                                    "method": "patch",
+                                    "path": "/_apis/wit/workitems/@{encodeURIComponent(triggerBody()?['id'])}",
+                                    "queries": {
+                                        "account": "usmanahmad788",
+                                        "project": "AzureBoard-Project"
+                                    }
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            }
+                        },
+                        "expression": {
+                            "or": [
+                                {
+                                    "equals": [
+                                        "@items('For_each_Children_Feature')?['System.State']",
+                                        "Active"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@body('Get_Epic_child_Features')?['value']",
+                "runAfter": {
+                    "Get_Epic_child_Features": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "Get_Epic_child_Features": {
+                "description": "work item Id = parent work item ( Id )",
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/_apis/wit/workitems/@{encodeURIComponent(triggerBody()?['id'])}/children",
+                    "queries": {
+                        "account": "usmanahmad788",
+                        "project": "AzureBoard-Project",
+                        "workItemType": "Feature"
+                    }
+                },
+                "runAfter": {},
+                "type": "ApiConnection"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "Trigger_When_an_Epic_is_closed": {
+                "evaluatedRecurrence": {
+                    "frequency": "Minute",
+                    "interval": 2
+                },
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/v2/workitemclosed_trigger/@{encodeURIComponent('AzureBoard-Project')}/_apis/wit/wiql",
+                    "queries": {
+                        "account": "usmanahmad788",
+                        "areaPathComparison": "Equals",
+                        "closedState": "Done, Closed, Completed, Inactive",
+                        "iterationPathComparison": "Equals",
+                        "wiql__System_WorkItemType": "Epic"
+                    }
+                },
+                "recurrence": {
+                    "frequency": "Minute",
+                    "interval": 2
+                },
+                "splitOn": "@triggerBody()?['value']",
+                "type": "ApiConnection"
+            }
+        }
+    },
+    "// comment": "replace the visualstudioteamservices name values in above connections",
+    "parameters": {
+        "$connections": {
+            "value": {
+                
+            }
+        }
+    }
+}

@@ -1,0 +1,189 @@
+{
+    "definition": {
+        "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+        "actions": {
+            "For_each_UserStory_child_Bugs": {
+                "actions": {
+                    "if_any_Bug_is_Active": {
+                        "actions": {
+                            "then_set_UserStory_state_active_": {
+                                "description": "work item Id = parent work item ( Id )",
+                                "inputs": {
+                                    "body": {
+                                        "userEnteredFields": {
+                                            "System.State": "Active"
+                                        }
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+                                        }
+                                    },
+                                    "method": "patch",
+                                    "path": "/_apis/wit/workitems/@{encodeURIComponent(triggerBody()?['id'])}",
+                                    "queries": {
+                                        "account": "your-DevOps-org-name",
+                                        "project": "Restriction Testing"
+                                    }
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            }
+                        },
+                        "expression": {
+                            "or": [
+                                {
+                                    "equals": [
+                                        "@items('For_each_UserStory_child_Bugs')?['System.State']",
+                                        "Active"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@body('Get_UserStory_child_Bugs')?['value']",
+                "runAfter": {
+                    "Get_UserStory_child_Bugs": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "For_each_UserStory_child_Task": {
+                "actions": {
+                    "if_any_Task_is_Active": {
+                        "actions": {
+                            "set_UserStory_state_active_": {
+                                "inputs": {
+                                    "body": {
+                                        "userEnteredFields": {
+                                            "System.State": "Active"
+                                        }
+                                    },
+                                    "host": {
+                                        "connection": {
+                                            "name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+                                        }
+                                    },
+                                    "method": "patch",
+                                    "path": "/_apis/wit/workitems/@{encodeURIComponent(triggerBody()?['id'])}",
+                                    "queries": {
+                                        "account": "your-DevOps-org-name",
+                                        "project": "Restriction Testing"
+                                    }
+                                },
+                                "runAfter": {},
+                                "type": "ApiConnection"
+                            }
+                        },
+                        "expression": {
+                            "or": [
+                                {
+                                    "equals": [
+                                        "@items('For_each_UserStory_child_Task')?['System.State']",
+                                        "Active"
+                                    ]
+                                }
+                            ]
+                        },
+                        "runAfter": {},
+                        "type": "If"
+                    }
+                },
+                "foreach": "@body('Get_UserStory_Child_task')?['value']",
+                "runAfter": {
+                    "Get_UserStory_Child_task": [
+                        "Succeeded"
+                    ]
+                },
+                "type": "Foreach"
+            },
+            "Get_UserStory_Child_task": {
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/_apis/wit/workitems/@{encodeURIComponent(triggerBody()?['id'])}/children",
+                    "queries": {
+                        "account": "your-DevOps-org-name",
+                        "project": "Restriction Testing",
+                        "workItemType": "Task"
+                    }
+                },
+                "runAfter": {},
+                "type": "ApiConnection"
+            },
+            "Get_UserStory_child_Bugs": {
+                "description": "work item Id = parent work item ( Id )",
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/_apis/wit/workitems/@{encodeURIComponent(triggerBody()?['id'])}/children",
+                    "queries": {
+                        "account": "your-DevOps-org-name",
+                        "project": "Restriction Testing",
+                        "workItemType": "Bug"
+                    }
+                },
+                "runAfter": {},
+                "type": "ApiConnection"
+            }
+        },
+        "contentVersion": "1.0.0.0",
+        "outputs": {},
+        "parameters": {
+            "$connections": {
+                "defaultValue": {},
+                "type": "Object"
+            }
+        },
+        "triggers": {
+            "Trigger_When_a_UserStory_is_closed": {
+                "evaluatedRecurrence": {
+                    "frequency": "Minute",
+                    "interval": 2
+                },
+                "inputs": {
+                    "host": {
+                        "connection": {
+                            "name": "@parameters('$connections')['visualstudioteamservices']['connectionId']"
+                        }
+                    },
+                    "method": "get",
+                    "path": "/v2/workitemclosed_trigger/@{encodeURIComponent('Restriction Testing')}/_apis/wit/wiql",
+                    "queries": {
+                        "account": "your-DevOps-org-name",
+                        "areaPathComparison": "Equals",
+                        "closedState": "Done, Closed, Completed, Inactive",
+                        "iterationPathComparison": "Equals",
+                        "wiql__System_WorkItemType": "User Story"
+                    }
+                },
+                "recurrence": {
+                    "frequency": "Minute",
+                    "interval": 1
+                },
+                "splitOn": "@triggerBody()?['value']",
+                "type": "ApiConnection"
+            }
+        }
+    },
+    "// comment": "replace the visualstudioteamservices name values in above connections",
+"parameters": {
+        "$connections": {
+            "value": {
+                
+            }
+        }
+    }
+}
