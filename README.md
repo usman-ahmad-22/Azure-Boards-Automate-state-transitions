@@ -12,7 +12,7 @@ it is efficient and cost-effective way for states automation.
 * it can ensure consistency and accuracy of work item states across the project.
 * it can save time and effort by reducing manual updates.
 
-my project team requirments are that "parent work items should not be close if there are any Active child work items".
+**my project team requirments are "parent work items should not be close if there are any Active child work items" so i created workflow for this functionality**
 ### Workflow Steps:
 ### 1st Step:
 you need to add a trigger step and connect your DevOps org account with this app from azure devops connector its API name is visualstudioteamservices  then select sub step when work items is closed then select your project and parent work item type.
