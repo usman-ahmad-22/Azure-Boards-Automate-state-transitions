@@ -15,10 +15,10 @@ it is efficient and cost-effective way for states automation.
 **my project team requirments are "parent work items should not be close if there are any Active child work items" so i created workflow for this functionality**
 ### Workflow Steps:
 ### 1st Step:
-you need to add a trigger step and connect your DevOps org account with this app from azure devops connector its API name is visualstudioteamservices  then select sub step when work items is closed then select your project and parent work item type.
+you need to add a trigger step and connect your Azure DevOps org account with this app from azure devops connector its API name is visualstudioteamservices  then select sub step "when work items is closed" then select your project and parent work item type.
 ### 2nd Step:
-get child work items details and select your child work item type then i use for each loop, if condition and OR operator in designer to check if any child work item is active
+"get child work item details" and select your child work item type then i use for each loop, if condition and OR operator in designer to check if any child work item state is active
 ### 3rd Step:
-if any child work item is active condtion becomes True then create next step in true block update work item details then click other parameters then select other fields then insert these values system.state = True
+if any child work item state =  active condtion becomes True then create next step in true block "update work item details" then click on other parameters then select other fields then insert these values System.State = True
 
 **you can also automate other elements of azure devops services with Azure logic apps**
