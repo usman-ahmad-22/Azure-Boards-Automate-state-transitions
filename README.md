@@ -17,7 +17,7 @@ it is efficient and cost-effective way for states automation.
 ### 1st Step:
 you need to add a trigger step and connect your Azure DevOps org account with this app from azure devops connector its API name is visualstudioteamservices  then select sub step "when work items is closed" then select your project and parent work item type.
 ### 2nd Step:
-"get child work item details" and select your child work item type then i use for each loop, if condition and OR operator in designer to check if any child work item state is active
+"get child work item details" and select your child work item type then i use for each loop, if condition,OR operator and "State" from dynamic content in designer to check if any child work item state is active
 ### 3rd Step:
 if any child work item state =  active condtion becomes True then create next step in true block "update work item details" then click on other parameters then select other fields then insert these values System.State = True
 
