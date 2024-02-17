@@ -23,5 +23,4 @@ if any child work item state =  active condtion becomes True then create next st
 
 **you can also automate other elements of azure devops services with Azure logic apps**
 ### Support Me
-If you find this project useful or would like to support my work,  Your contribution will help me continue to improve this project and create new ones in the future.
-You can also show your support by giving this repository a star on GitHub. This will help more people discover and use the project, and let me know that you find it useful. To star the repository, simply click the "Star" button at the top of the page.
+If you find this project useful or would like to support my work then you can show your support by giving this repository a star on GitHub. This will help more people discover and use the project, and let me know that you find it useful. To star the repository, simply click the "Star" button at the top of the page.
