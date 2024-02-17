@@ -22,3 +22,6 @@ you need to add a trigger step and connect your Azure DevOps org account with th
 if any child work item state =  active condtion becomes True then create next step in true block "update work item details" then click on other parameters then select other fields then insert these values System.State = True
 
 **you can also automate other elements of azure devops services with Azure logic apps**
+### Support Me
+If you find this project useful or would like to support my work,  Your contribution will help me continue to improve this project and create new ones in the future.
+You can also show your support by giving this repository a star on GitHub. This will help more people discover and use the project, and let me know that you find it useful. To star the repository, simply click the "Star" button at the top of the page.
