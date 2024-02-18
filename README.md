@@ -13,9 +13,13 @@ it is efficient and cost-effective way for states automation.
 * it can save time and effort by reducing manual updates.
 
 **my project team requirments are "parent work items should not be close if there are any Active child work items" so i created workflow for this functionality**
+
 ### Workflow Steps:
 ### 1st Step:
 you need to add a trigger step and connect your Azure DevOps org account with this app from azure devops connector its API name is visualstudioteamservices  then select sub step "when work items is closed" then select your project and parent work item type.
+### Important Note:
+    after conpleting above step now you can also deploy my loigc app workflow for every parent-child relationship from code that i provided for each agile project parent-child relationship what you do just copy my code but replace the organization and project name with your Azure DevOps ORG and project everywhere in the code. 
+    you just
 ### 2nd Step:
 "get child work item details" and select your child work item type then i use for each loop, if condition,OR operator and "State" from dynamic content in designer to check if any child work item state is active
 ### 3rd Step:
