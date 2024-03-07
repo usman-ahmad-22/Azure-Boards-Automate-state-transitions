@@ -1,5 +1,5 @@
 # Azure-Boards-Automate-state-transitions
-**I created logic apps that will Automate Azure Boards state transitions of parent work items based on child work items.**
+**I created logic apps that will Automate Azure Boards state transitions of parent work items based on child work items which will work in every azure boards section Work items, sprints, kanban board, backlog, queries etc.**
 
 workflow of automation is like this:
 
