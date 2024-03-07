@@ -17,9 +17,10 @@ it is efficient and cost-effective way for states automation.
 ### Workflow Steps:
 ### 1st Step:
 you need to add a trigger step and connect your Azure DevOps org account with this app from azure devops connector its API name is visualstudioteamservices  then select sub step "when work items is closed" then select your project and parent work item type.
-### Important Note:
-    after conpleting above step now you can also deploy my loigc app workflow direct on your Azure acc for every parent-child relationship
-    from code that i provided for each agile project work item what you do just copy my
+### Note:
+    if u have some programing knowledge then after conpleting above 1st step now you can also skip further 2nd and 3rd and deploy my loigc app workflow 
+    direct on your Azure acc for every 
+    parent-child relationship from code that i provided for each agile project work item what you do just copy my
     defination code block and remain your parameters: connections as it is and then replace the organization and
     project name with your Azure DevOps ORG and project everywhere in the code.
 ### 2nd Step:
